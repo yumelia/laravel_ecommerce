@@ -50,3 +50,7 @@ Route::put('buku/{id}', [MyController::class, 'update']);
 
 // delete
 Route::delete( 'buku/{id}', [MyController::class, 'destroy']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
