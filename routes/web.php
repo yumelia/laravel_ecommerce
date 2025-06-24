@@ -5,8 +5,13 @@ use Illuminate\Support\Facades\Route;
 //import controller
 
 use App\Http\Controllers\MyController;
-use App\Http\Middleware\Admin;
 use App\Http\Controllers\BackendController;
+use App\Http\Middleware\Admin;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ProductController;
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -64,4 +69,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', Admin::class]], function (){
     Route::get('/', [BackendController::class,'index']);
+    // route crud 
+    Route::resource('/category', CategoryController::class);
+    Route::resource('/product', ProductController::class);
+
 });
