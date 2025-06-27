@@ -25,7 +25,7 @@
             <!-- Dashboard -->
             <!-- ---------------------------------- -->
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/admin/category" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('backend.category.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-aperture"></i>
                 </span>
@@ -33,7 +33,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/admin/product" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('backend.product.index') }}" aria-expanded="false">
                 <span>
                   <i class="ti ti-shopping-cart"></i>
                 </span>

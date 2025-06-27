@@ -25,6 +25,10 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     // relasi many to many
     public function orders()
@@ -33,5 +37,4 @@ class Product extends Model
         ->withTimestamps;
     }
 
-    
 }

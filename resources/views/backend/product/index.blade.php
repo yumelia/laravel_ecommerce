@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header bg-secondary">
                         Data Produk
-                        <a href="{{ route('product.create') }}" class="btn btn-info btn-sm"
+                        <a href="{{ route('backend.product.create') }}" class="btn btn-info btn-sm"
                             style="text-color:white;  float: right">
                             Tambah
                         </a>
@@ -46,15 +46,15 @@
                                             </td>
                                             <td>{{ $data->description }}</td>
                                             <td>
-                                                <a href="{{ route('product.edit', $data->id) }}"
+                                                <a href="{{ route('backend.product.edit', $data->id) }}"
                                                     class="btn btn-sm btn-warning">
                                                     Edit
                                                 </a> |
-                                                <a href="{{ route('product.show', $data->id) }}"
+                                                <a href="{{ route('backend.product.show', $data->id) }}"
                                                     class="btn btn-sm btn-success">
                                                     Show
                                                 </a> |
-                                                <a href="{{ route('product.destroy', $data->id) }}"
+                                                <a href="{{ route('backend.product.destroy', $data->id) }}"
                                                     class="btn btn-sm btn-danger" data-confirm-delete="true">
                                                     Delete
                                                 </a>

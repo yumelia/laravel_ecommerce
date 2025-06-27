@@ -1,0 +1,71 @@
+@extends ('layouts.frontend')
+
+@section('content')
+
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="breadcrumb__title">
+                    <h1>My Orders</h1>
+                    <ul>
+                        <li><a href="{{ url('/') }}">Home</a></li>
+                        <li><a href="{{ route('order.index') }}">Orders</a></li>
+                        <li class="color__blue">Detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- order detail section -->
+ <div class="cartarea sp_top_100 sp_buttom_100">
+    <div class="container">
+        <div class="mb-4">
+            <h4>Order Information</h4>
+            <p><strong>Order Code:</strong> {{ $order->order_code }}</p>
+            <p><strong>Status:</strong>
+            @if ($order->status == 'pending')
+                <span class="bagde bg-warning text-dark">Pending</span>
+                @elseif ($order->status == 'success')
+                <span class="bagde bg-success">Succes</span>
+                @else
+                <span class="bagde bg-danger">Canceled</span>
+            </p>
+            <p><strong>Order Date :</strong>{{ $order->created_ad->format('d M Y, H:1') }}</p>
+            <p><strong>Total Price :</strong>{{ number_format($order->total_price,0,',','.') }}</p>
+        </div>
+
+        <div class="table-responsive">
+            <h4>Product</h4>
+            <table class="table table-bordered text-center align-middle">
+                <thead class="thead-dark bg-dark text-white">
+                    <tr>
+                        <th>#</th>
+                        <th>Produk</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($order->product as $index => $product)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $produck->pivot->qty }}</td>
+                        <td>Rp {{ number_format($product->pivot->price,0,',','.') }}</td>
+                        <td>Rp {{ number_format($product->pivot->qty * $product->pivot->price,0,',','.') }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="text-end mt-4">
+            <a href="{{ route('orders.index') }}" class="btn btn-secondary"> Back to Orders</a>
+        </div>
+    </div>
+</div>
+@endsection
