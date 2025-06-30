@@ -46,7 +46,7 @@ class CartController extends Controller
                 'qty' => $request->qty,
             ]);
         }
-        toast('Produl berhasil ditambahkan ke keranjang.', 'success');
+        toast('Produk berhasil ditambahkan ke keranjang.', 'success');
         return back();
     }
 
@@ -62,7 +62,7 @@ class CartController extends Controller
         $cartItems->save();
 
         toast('Jumlah berhasil diperbarui.', 'success');
-        return redirect()-route('cart.index');
+        return redirect()->route('cart.index');
     }
 
     public function remove($id)
@@ -82,18 +82,38 @@ class CartController extends Controller
         }
 
         // hitung total harga
-        $totak = $cartItems->sum(function ($item) {
+        $total = $cartItems->sum(function ($item) {
             return $item->qty * $item->product->price;
         });
 
         // simpan order
-        $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
-        $total = $cartItems->sum('total');
+        
         $order = Order::create([
             'user_id' => auth()->id(),
             'order_code' => 'ORD-' . strtoupper(Str::random(8)),
             'total_price' => $total,
             'status' => 'pending',
         ]);
+
+        // Simpan detail order ke pivot order_product
+        foreach ($cartItems as $item) {
+            // Kurangi stok
+            $product = Product::find($item->product_id);
+            $product->stock -= $item->qty;
+            $product->save();
+
+            $order->products()->attach($item->product_id, [
+                'qty'   => $item->qty,
+                'price' => $item->product->price,
+            ]);
+        }
+
+        // Hapus isi keranjang
+        Cart::where('user_id', auth()->id())->delete();
+
+        toast('Pesanan berhasil dibuat!', 'success');
+        return redirect()->route('orders.index');
+    
+
     }
 }

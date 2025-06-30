@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CartController;
-use Illuminate\Support\Facades\Route;
+
 
 //import controller
+
+use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\BackendController;
@@ -11,8 +12,11 @@ use App\Http\Middleware\Admin;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\Backend\OrderController as BackendOrdersController;
-use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Backend\OrderController as OrdersController;
+use App\Http\Controllers\OrderController;
 
 
 
@@ -83,13 +87,13 @@ Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
 // review
-Route::post('/product/{product}/review', [App\Http\Controllers\ReviewController::class, 'store'])
+Route::post('/product/{product}/review', [ReviewController::class, 'store'])
 ->middleware('auth')->name('review.store');
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //import middleware
 

@@ -122,9 +122,9 @@
                                 <div class="grid__wraper__img__inner">
                                     <a href="/product/{{ $data->slug }}">
                                         <img class="primary__image" src="{{ Storage::url($data->image) }}"
-                                            alt="Primary Image">
+                                            alt="Primary Image" style="width: 100%; height: 250px; object-fit: cover;">
                                         <img class="secondary__image" src="{{Storage::url($data->image)}}"
-                                            alt="Secondary Image">
+                                            alt="Secondary Image" style="width: 100%; height: 250px; object-fit: cover;">
                                     </a>
                                 </div>
                                 <div class="grid__wraper__icon">

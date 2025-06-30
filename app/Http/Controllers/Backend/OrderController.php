@@ -27,6 +27,9 @@ class OrderController extends Controller
      public function destroy( $id)
     {
         $order = Order::findOrFail($id);
+
+        // hapus semua data detail product order_product menggunakan fungsi detach
+        $order->product->detach();
         $order->delete();
         toast('Pesanan  berhasil dihapus', 'success');
         return redirect()->route('backend.orders.index');

@@ -33,7 +33,7 @@ class Product extends Model
     // relasi many to many
     public function orders()
     {
-        return $this->belongsToMany(Order::class)->withVipot('qty','price')
+        return $this->belongsToMany(Order::class)->withPivot('qty','price')
         ->withTimestamps;
     }
 

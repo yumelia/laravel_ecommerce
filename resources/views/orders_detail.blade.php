@@ -10,7 +10,7 @@
                     <h1>My Orders</h1>
                     <ul>
                         <li><a href="{{ url('/') }}">Home</a></li>
-                        <li><a href="{{ route('order.index') }}">Orders</a></li>
+                        <li><a href="{{ route('orders.index') }}">Orders</a></li>
                         <li class="color__blue">Detail</li>
                     </ul>
                 </div>
@@ -27,13 +27,14 @@
             <p><strong>Order Code:</strong> {{ $order->order_code }}</p>
             <p><strong>Status:</strong>
             @if ($order->status == 'pending')
-                <span class="bagde bg-warning text-dark">Pending</span>
+                <span class="badge bg-warning text-dark">Pending</span>
                 @elseif ($order->status == 'success')
-                <span class="bagde bg-success">Succes</span>
+                <span class="badge bg-success">Succes</span>
                 @else
-                <span class="bagde bg-danger">Canceled</span>
+                <span class="badge bg-danger">Canceled</span>
+                @endif
             </p>
-            <p><strong>Order Date :</strong>{{ $order->created_ad->format('d M Y, H:1') }}</p>
+            <p><strong>Order Date :</strong>{{ $order->created_at->format('d M Y, H:i') }}</p>
             <p><strong>Total Price :</strong>{{ number_format($order->total_price,0,',','.') }}</p>
         </div>
 
@@ -50,11 +51,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($order->product as $index => $product)
+                    @foreach ($order->products as $index => $product)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $product->name }}</td>
-                        <td>{{ $produck->pivot->qty }}</td>
+                        <td>{{ $product->pivot->qty }}</td>
                         <td>Rp {{ number_format($product->pivot->price,0,',','.') }}</td>
                         <td>Rp {{ number_format($product->pivot->qty * $product->pivot->price,0,',','.') }}</td>
                     </tr>
@@ -64,7 +65,7 @@
         </div>
         
         <div class="text-end mt-4">
-            <a href="{{ route('orders.index') }}" class="btn btn-secondary"> Back to Orders</a>
+            <a href="{{ route('orders.index') }}" class="btn btn-secondary"> <- Back to Orders</a>
         </div>
     </div>
 </div>
